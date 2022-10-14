@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var xLabel: UILabel!
     @IBOutlet weak var yLabel: UILabel!
     @IBOutlet weak var zlabel: UILabel!
+    
     var motionManager: CMMotionManager!
     
     override func viewDidLoad() {
@@ -23,7 +24,19 @@ class ViewController: UIViewController {
 
     func updateLabels(data: CMAccelerometerData?, error: Error?){
         guard let accelerometerData = data else {return}
-        print(accelerometerData)
+        
+        //Number Formatter
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 1
+        formatter.maximumFractionDigits = 1
+        
+        let x = formatter.string(for: accelerometerData.acceleration.x)!
+        let y = formatter.string(for: accelerometerData.acceleration.y)!
+        let z = formatter.string(for: accelerometerData.acceleration.z)!
+        
+        xLabel.text = "X: \(x)"
+        yLabel.text = "Y: \(y)"
+        zlabel.text = "Z: \(z)"
     }
 }
 
